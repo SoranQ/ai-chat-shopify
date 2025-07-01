@@ -1,0 +1,187 @@
+<!-- AI Chat Interface för Shopify -->
+<!-- Kopiera denna kod till din Shopify-sida: https://nolimitsgang.com/pages/aitest -->
+
+<div id="ai-chat-root"></div>
+
+<!-- Ladda CSS (ersätt med din CDN URL) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yourusername/yourrepo@main/dist/assets/index-BeLGG2Xt.css">
+
+<!-- Ladda JavaScript (ersätt med din CDN URL) -->
+<script type="module" src="https://cdn.jsdelivr.net/gh/yourusername/yourrepo@main/dist/assets/index-y0ycwLFx.js"></script>
+
+<style>
+  /* Shopify-specifika stilar */
+  #ai-chat-root {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 600px;
+  }
+  
+  /* Anpassa för Shopify-tema */
+  .ai-chat-container {
+    background: var(--color-background, #ffffff);
+    color: var(--color-foreground, #000000);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+  }
+  
+  /* Responsiv design */
+  @media (max-width: 768px) {
+    #ai-chat-root {
+      padding: 10px;
+    }
+    
+    .ai-chat-container {
+      padding: 15px;
+    }
+  }
+  
+  /* Stor grön tal-knapp */
+  .voice-button {
+    background: #22c55e !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 50% !important;
+    width: 120px !important;
+    height: 120px !important;
+    font-size: 24px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3) !important;
+  }
+  
+  .voice-button:hover {
+    background: #16a34a !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4) !important;
+  }
+  
+  .voice-button:active {
+    transform: scale(0.95) !important;
+  }
+  
+  /* Loading animation */
+  .voice-button.recording {
+    animation: pulse 1.5s infinite !important;
+  }
+  
+  @keyframes pulse {
+    0% { box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3); }
+    50% { box-shadow: 0 4px 25px rgba(34, 197, 94, 0.6); }
+    100% { box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3); }
+  }
+  
+  /* Monta-tema anpassning */
+  .ai-chat-container h1,
+  .ai-chat-container h2,
+  .ai-chat-container h3 {
+    color: var(--color-foreground, #1a1a1a);
+    font-family: var(--font-heading-family, inherit);
+  }
+  
+  /* Chat meddelanden */
+  .chat-message {
+    margin: 10px 0;
+    padding: 12px 16px;
+    border-radius: 12px;
+    max-width: 80%;
+  }
+  
+  .chat-message.user {
+    background: #22c55e;
+    color: white;
+    margin-left: auto;
+    text-align: right;
+  }
+  
+  .chat-message.ai {
+    background: #f3f4f6;
+    color: #1f2937;
+    margin-right: auto;
+  }
+  
+  /* GDPR consent styling */
+  .gdpr-consent {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .gdpr-consent button {
+    background: #22c55e;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 5px;
+  }
+  
+  .gdpr-consent button:hover {
+    background: #16a34a;
+  }
+</style>
+
+<script>
+  // Shopify-specifik konfiguration
+  window.AI_CHAT_CONFIG = {
+    backend_url: 'https://ai-chat-backend-k9257yk9q-soranqs-projects.vercel.app/api',
+    shopify_integration: true,
+    theme: 'auto',
+    debug: true
+  };
+  
+  // Debug information
+  console.log('🛒 Shopify AI Chat Loading...', {
+    config: window.AI_CHAT_CONFIG,
+    location: window.location.href,
+    userAgent: navigator.userAgent
+  });
+  
+  // Vänta på att DOM är redo
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('🛒 Shopify AI Chat DOM Ready');
+    
+    // Kontrollera att React-appen laddas
+    setTimeout(function() {
+      const root = document.getElementById('ai-chat-root');
+      if (root && root.children.length === 0) {
+        console.warn('⚠️ AI Chat app did not load. Check console for errors.');
+        root.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">AI Chat laddar... Om detta meddelande kvarstår, kontrollera din internetanslutning.</p>';
+      }
+    }, 5000);
+  });
+  
+  // Error handling
+  window.addEventListener('error', function(e) {
+    console.error('🚨 Shopify AI Chat Error:', e.error);
+  });
+  
+  // Unhandled promise rejections
+  window.addEventListener('unhandledrejection', function(e) {
+    console.error('🚨 Shopify AI Chat Promise Rejection:', e.reason);
+  });
+</script>
+
+<!-- 
+INSTRUKTIONER FÖR SHOPIFY:
+
+1. Gå till Shopify Admin > Online Store > Pages
+2. Klicka "Add page"
+3. Title: "AI Test"
+4. URL: "aitest" 
+5. Kopiera hela denna HTML-kod till Content-fältet
+6. Uppdatera CDN-URL:erna ovan med dina faktiska URLs
+7. Spara sidan
+
+NÄSTA STEG:
+- Ladda upp dist/assets/ filerna till en CDN (GitHub Pages, Vercel, etc.)
+- Ersätt "yourusername/yourrepo" med dina faktiska GitHub-detaljer
+- Testa på https://nolimitsgang.com/pages/aitest
+
+BACKEND URL: https://ai-chat-backend-k9257yk9q-soranqs-projects.vercel.app
+-->
